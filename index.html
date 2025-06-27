@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bento Finance - Commerce-Powered Finance, at the Speed of Thought</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F172A',
+                        accent: '#10B981',
+                        secondary: '#FACC15',
+                        neutral: {
+                            light: '#F1F5F9',
+                            dark: '#0F172A',
+                            gray: '#64748B'
+                        }
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'poppins': ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #10B981 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .floating-animation {
+            animation: floating 6s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .finance-card {
+            backdrop-filter: blur(10px);
+            background: rgba(248, 250, 252, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .finance-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(248, 250, 252, 0.2);
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #10B981, #FACC15);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .credit-flow {
+            animation: creditFlow 4s ease-in-out infinite;
+        }
+
+        @keyframes creditFlow {
+            0% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: -100; }
+        }
+
+        .pulse-green {
+            animation: pulse-green 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-green {
+            0%, 100% { 
+                opacity: 0.6;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        .finance-mesh {
+            background-image:
+                radial-gradient(circle at 25% 25%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(250, 204, 21, 0.1) 0%, transparent 50%);
+        }
+
+        .currency-orbit {
+            animation: orbit 20s linear infinite;
+        }
+
+        @keyframes orbit {
+            from { transform: rotate(0deg) translateX(150px) rotate(0deg); }
+            to { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+        }
+
+        .currency-orbit-reverse {
+            animation: orbit-reverse 25s linear infinite;
+        }
+
+        @keyframes orbit-reverse {
+            from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+            to { transform: rotate(-360deg) translateX(120px) rotate(360deg); }
+        }
+    </style>
+</head>
+
+<body class="bg-neutral-light text-primary overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-transparent backdrop-blur-lg border-b border-white/10 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="w-8 h-8 bg-accent rounded-lg flex items-center justify-center shadow-lg shadow-accent/30">
+                            <i class="fas fa-credit-card text-white text-lg"></i>
+                        </div>
+                        <span class="ml-3 text-2xl font-poppins font-bold text-white">Bento Finance</span>
+                        <div class="ml-3 bg-white/20 text-white px-2 py-1 rounded-full text-xs font-medium">
+                            FINANCE
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#tools" class="text-white/80 hover:text-accent transition-colors font-medium">Financial Tools</a>
+                    <a href="#integration" class="text-white/80 hover:text-accent transition-colors font-medium">Integration</a>
+                    <a href="#trust" class="text-white/80 hover:text-accent transition-colors font-medium">Trust</a>
+                    <a href="#contact" class="bg-accent text-white px-6 py-2 rounded-2xl hover:bg-secondary hover:shadow-lg hover:shadow-accent/20 transition-all font-medium">
+                        Apply to Integrate
+                    </a>
+                </div>
+                <div class="md:hidden">
+                    <button class="text-white/80 hover:text-accent">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg min-h-screen flex items-center justify-center relative overflow-hidden">
+        <!-- Background Mesh -->
+        <div class="absolute inset-0 finance-mesh opacity-30"></div>
+
+        <!-- Floating Financial Elements -->
+        <div class="absolute top-20 left-10 w-16 h-16 bg-accent/20 rounded-full floating-animation"></div>
+        <div class="absolute bottom-32 right-16 w-12 h-12 bg-secondary/20 rounded-full floating-animation" style="animation-delay: 2s;"></div>
+        <div class="absolute top-1/3 right-20 w-14 h-14 bg-accent/30 rounded-full floating-animation" style="animation-delay: 4s;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div data-aos="fade-up" data-aos-duration="1000">
+                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-poppins font-bold text-white mt-6 mb-6 leading-tight">
+                    Commerce-Powered Finance,<br>
+                    <span class="text-accent">at the Speed of Thought</span>
+                </h1>
+                <p class="text-xl sm:text-2xl text-gray-200 mb-12 max-w-4xl mx-auto font-inter">
+                    Real-time credit, seamless payments, and embedded financial tools that move with your business — intelligently.
+                </p>
+
+                <!-- Financial Flow Visualization -->
+                <div class="relative inline-block mb-8">
+                    <div class="relative w-96 h-96 mx-auto">
+                        <!-- Central Finance Core -->
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-24 h-24 bg-gradient-to-br from-accent to-secondary rounded-full flex items-center justify-center shadow-2xl">
+                                <i class="fas fa-coins text-white text-2xl pulse-green"></i>
+                            </div>
+                        </div>
+
+                        <!-- Orbiting Currency Icons -->
+                        <div class="absolute inset-0">
+                            <!-- Dollar orbit -->
+                            <div class="currency-orbit absolute top-1/2 left-1/2 w-8 h-8 bg-accent/80 rounded-full flex items-center justify-center">
+                                <span class="text-white text-sm font-bold">$</span>
+                            </div>
+                            <!-- Euro orbit -->
+                            <div class="currency-orbit absolute top-1/2 left-1/2 w-8 h-8 bg-secondary/80 rounded-full flex items-center justify-center" style="animation-delay: -5s;">
+                                <span class="text-white text-sm font-bold">€</span>
+                            </div>
+                            <!-- Pound orbit -->
+                            <div class="currency-orbit absolute top-1/2 left-1/2 w-8 h-8 bg-accent/80 rounded-full flex items-center justify-center" style="animation-delay: -10s;">
+                                <span class="text-white text-sm font-bold">£</span>
+                            </div>
+                            <!-- Yen orbit -->
+                            <div class="currency-orbit absolute top-1/2 left-1/2 w-8 h-8 bg-secondary/80 rounded-full flex items-center justify-center" style="animation-delay: -15s;">
+                                <span class="text-white text-sm font-bold">¥</span>
+                            </div>
+                        </div>
+
+                        <!-- Reverse orbit layer -->
+                        <div class="absolute inset-0">
+                            <!-- Credit orbit -->
+                            <div class="currency-orbit-reverse absolute top-1/2 left-1/2 w-10 h-10 bg-accent/70 rounded-full flex items-center justify-center">
+                                <i class="fas fa-credit-card text-white text-sm"></i>
+                            </div>
+                            <!-- Bitcoin orbit -->
+                            <div class="currency-orbit-reverse absolute top-1/2 left-1/2 w-10 h-10 bg-secondary/70 rounded-full flex items-center justify-center" style="animation-delay: -8s;">
+                                <i class="fab fa-bitcoin text-white text-sm"></i>
+                            </div>
+                            <!-- Wallet orbit -->
+                            <div class="currency-orbit-reverse absolute top-1/2 left-1/2 w-10 h-10 bg-accent/70 rounded-full flex items-center justify-center" style="animation-delay: -16s;">
+                                <i class="fas fa-wallet text-white text-sm"></i>
+                            </div>
+                        </div>
+
+                        <!-- Credit Flow Lines -->
+                        <svg class="absolute inset-0 w-full h-full" viewBox="0 0 400 400">
+                            <defs>
+                                <linearGradient id="creditGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#10B981;stop-opacity:0.8" />
+                                    <stop offset="100%" style="stop-color:#FACC15;stop-opacity:0.6" />
+                                </linearGradient>
+                            </defs>
+
+                            <!-- Credit Flow Paths -->
+                            <g stroke="url(#creditGradient)" stroke-width="2" fill="none" opacity="0.6">
+                                <!-- Store connections -->
+                                <path d="M200,200 Q150,120 100,80" stroke-dasharray="10,5">
+                                    <animate attributeName="stroke-dashoffset" values="0;-100" dur="3s" repeatCount="indefinite"/>
+                                </path>
+                                <path d="M200,200 Q250,120 300,80" stroke-dasharray="10,5">
+                                    <animate attributeName="stroke-dashoffset" values="0;-100" dur="2.5s" repeatCount="indefinite"/>
+                                </path>
+                                <!-- Delivery connections -->
+                                <path d="M200,200 Q320,200 350,150" stroke-dasharray="10,5">
+                                    <animate attributeName="stroke-dashoffset" values="0;-100" dur="3.2s" repeatCount="indefinite"/>
+                                </path>
+                                <path d="M200,200 Q320,280 350,320" stroke-dasharray="10,5">
+                                    <animate attributeName="stroke-dashoffset" values="0;-100" dur="2.8s" repeatCount="indefinite"/>
+                                </path>
+                                <!-- Warehouse connections -->
+                                <path d="M200,200 Q200,320 150,350" stroke-dasharray="10,5">
+                                    <animate attributeName="stroke-dashoffset" values="0;-100" dur="3.5s" repeatCount="indefinite"/>
+                                </path>
+                                <path d="M200,200 Q100,280 50,320" stroke-dasharray="10,5">
+                                    <animate attributeName="stroke-dashoffset" values="0;-100" dur="2.2s" repeatCount="indefinite"/>
+                                </path>
+                            </g>
+
+                            <!-- Commerce Nodes -->
+                            <g fill="#10B981" opacity="0.8">
+                                <!-- Store nodes -->
+                                <circle cx="100" cy="80" r="6">
+                                    <animate attributeName="r" values="4;8;4" dur="3s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="300" cy="80" r="6">
+                                    <animate attributeName="r" values="4;8;4" dur="2.5s" repeatCount="indefinite"/>
+                                </circle>
+                                <!-- Delivery nodes -->
+                                <circle cx="350" cy="150" r="6">
+                                    <animate attributeName="r" values="4;8;4" dur="3.2s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="350" cy="320" r="6">
+                                    <animate attributeName="r" values="4;8;4" dur="2.8s" repeatCount="indefinite"/>
+                                </circle>
+                                <!-- Warehouse nodes -->
+                                <circle cx="150" cy="350" r="6">
+                                    <animate attributeName="r" values="4;8;4" dur="3.5s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="50" cy="320" r="6">
+                                    <animate attributeName="r" values="4;8;4" dur="2.2s" repeatCount="indefinite"/>
+                                </circle>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                    <a href="#tools" class="bg-white text-primary px-8 py-4 rounded-2xl font-semibold hover:bg-gray-100 transition-all transform hover:scale-105 shadow-xl">
+                        <i class="fas fa-search mr-2"></i>
+                        Explore Financial Tools
+                    </a>
+                    <a href="#contact" class="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold hover:bg-white hover:text-primary transition-all transform hover:scale-105">
+                        <i class="fas fa-handshake mr-2"></i>
+                        Partner with Bento
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Concepts Section -->
+    <section id="tools" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 data-aos="fade-up" class="text-4xl sm:text-5xl font-poppins font-bold text-primary mb-6">
+                    Financial Infrastructure Built Around <span class="text-gradient">Commerce</span>
+                </h2>
+                <p data-aos="fade-up" data-aos-delay="200" class="text-xl text-neutral-gray max-w-4xl mx-auto">
+                    Embedded finance that understands your business flows — from checkout to cash flow, we've got you covered.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" data-aos="fade-up" data-aos-delay="400">
+                <!-- BNPL for Consumers -->
+                <div class="group text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-accent/20 to-secondary/20 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-calendar-alt text-accent text-2xl group-hover:text-secondary transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl font-poppins font-semibold text-primary mb-3 group-hover:text-accent transition-colors">
+                        BNPL for Consumers
+                    </h3>
+                    <p class="text-neutral-gray text-sm leading-relaxed">
+                        Turn any retail checkout into a pay-later opportunity.
+                    </p>
+                </div>
+
+                <!-- Retailer Lending -->
+                <div class="group text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-accent/20 to-secondary/20 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-store text-accent text-2xl group-hover:text-secondary transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl font-poppins font-semibold text-primary mb-3 group-hover:text-accent transition-colors">
+                        Retailer Lending
+                    </h3>
+                    <p class="text-neutral-gray text-sm leading-relaxed">
+                        Unlock working capital backed by real-time sales data.
+                    </p>
+                </div>
+
+                <!-- Trade Finance for B2B -->
+                <div class="group text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-accent/20 to-secondary/20 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-handshake text-accent text-2xl group-hover:text-secondary transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl font-poppins font-semibold text-primary mb-3 group-hover:text-accent transition-colors">
+                        Trade Finance for B2B
+                    </h3>
+                    <p class="text-neutral-gray text-sm leading-relaxed">
+                        Credit tools for wholesale orders and bulk procurement.
+                    </p>
+                </div>
+
+                <!-- Embedded Payments -->
+                <div class="group text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-accent/20 to-secondary/20 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-exchange-alt text-accent text-2xl group-hover:text-secondary transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl font-poppins font-semibold text-primary mb-3 group-hover:text-accent transition-colors">
+                        Embedded Payments
+                    </h3>
+                    <p class="text-neutral-gray text-sm leading-relaxed">
+                        Smart settlement across sellers, buyers, and fleets.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data-Driven Lending Section -->
+    <section class="py-24 bg-neutral-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 data-aos="fade-up" class="text-4xl sm:text-5xl font-poppins font-bold text-primary mb-6">
+                    Smart Capital, <span class="text-gradient">Not Blind Credit</span>
+                </h2>
+                <p data-aos="fade-up" data-aos-delay="200" class="text-xl text-neutral-gray max-w-4xl mx-auto">
+                    Our AI understands your operations — not just your numbers. That's why we can extend the right credit at the right time.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="400">
+                <!-- AI Risk Engine -->
+                <div class="finance-card p-8 rounded-3xl text-center group">
+                    <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
+                        <i class="fas fa-search text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-poppins font-semibold text-primary mb-3">AI Risk Engine</h3>
+                    <p class="text-neutral-gray text-sm">Real-time underwriting based on transaction behavior.</p>
+                </div>
+
+                <!-- Dynamic Limits -->
+                <div class="finance-card p-8 rounded-3xl text-center group">
+                    <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
+                        <i class="fas fa-chart-line text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-poppins font-semibold text-primary mb-3">Dynamic Limits</h3>
+                    <p class="text-neutral-gray text-sm">Credit lines that scale with your business.</p>
+                </div>
+
+                <!-- Autonomous Decisions -->
+                <div class="finance-card p-8 rounded-3xl text-center group">
+                    <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
+                        <i class="fas fa-robot text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-poppins font-semibold text-primary mb-3">Autonomous Decisions</h3>
+                    <p class="text-neutral-gray text-sm">Instant approvals, zero paperwork.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust + Compliance Section -->
+    <section id="trust" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 data-aos="fade-up" class="text-4xl sm:text-5xl font-poppins font-bold text-primary mb-6">
+                    Secure, Compliant, <span class="text-gradient">Trusted</span>
+                </h2>
+                <p data-aos="fade-up" data-aos-delay="200" class="text-xl text-neutral-gray max-w-3xl mx-auto">
+                    Built with enterprise-grade security and regulatory compliance at its core.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" data-aos="fade-up" data-aos-delay="400">
+                <!-- Regulatory-Aligned -->
+                <div class="text-center group">
+                    <div class="w-16 h-16 bg-gradient-to-br from-accent/20 to-secondary/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-balance-scale text-accent text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-poppins font-semibold text-primary mb-2">Regulatory-Aligned</h3>
+                    <p class="text-neutral-gray text-sm">Compliant with global financial standards</p>
+                </div>
+
+                <!-- Encrypted by Default -->
+                <div class="text-center group">
+                    <div class="w-16 h-16 bg-gradient-to-br from-accent/20 to-secondary/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-shield-alt text-accent text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-poppins font-semibold text-primary mb-2">Encrypted by Default</h3>
+                    <p class="text-neutral-gray text-sm">Bank-grade security for all transactions</p>
+                </div>
+
+                <!-- Partner-Verified Lending -->
+                <div class="text-center group">
+                    <div class="w-16 h-16 bg-gradient-to-br from-accent/20 to-secondary/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-certificate text-accent text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-poppins font-semibold text-primary mb-2">Partner-Verified Lending</h3>
+                    <p class="text-neutral-gray text-sm">Vetted financial institution network</p>
+                </div>
+
+                <!-- Intelligent Fraud Prevention -->
+                <div class="text-center group">
+                    <div class="w-16 h-16 bg-gradient-to-br from-accent/20 to-secondary/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-eye text-accent text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-poppins font-semibold text-primary mb-2">Intelligent Fraud Prevention</h3>
+                    <p class="text-neutral-gray text-sm">AI-powered risk detection and prevention</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ecosystem Integration Section -->
+    <section id="integration" class="py-24 bg-neutral-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 data-aos="fade-up" class="text-4xl sm:text-5xl font-poppins font-bold text-primary mb-6">
+                    Integrated Into Every Flow of <span class="text-gradient">Bento</span>
+                </h2>
+                <p data-aos="fade-up" data-aos-delay="200" class="text-xl text-neutral-gray max-w-3xl mx-auto">
+                    Native financial services across every touchpoint in the connected commerce ecosystem.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" data-aos="fade-up" data-aos-delay="400">
+                <!-- Retail ERP -->
+                <div class="finance-card p-6 rounded-3xl text-center group cursor-pointer" onclick="window.open('../index.html', '_blank')">
+                    <div class="w-16 h-16 bg-gradient-to-br from-accent/20 to-secondary/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-store text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-poppins font-semibold text-primary mb-2">Retail ERP</h3>
+                    <p class="text-neutral-gray text-sm mb-4">POS to Pay Later</p>
+                    <div class="flex justify-center">
+                        <span class="bg-accent/10 text-accent px-3 py-1 rounded-full text-xs font-medium">retail.bento.it.com</span>
+                    </div>
+                </div>
+
+                <!-- Wholesale -->
+                <div class="finance-card p-6 rounded-3xl text-center group cursor-pointer" onclick="window.open('../b2b/index.html', '_blank')">
+                    <div class="w-16 h-16 bg-gradient-to-br from-accent/20 to-secondary/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-handshake text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-poppins font-semibold text-primary mb-2">Wholesale</h3>
+                    <p class="text-neutral-gray text-sm mb-4">Invoice Financing</p>
+                    <div class="flex justify-center">
+                        <span class="bg-accent/10 text-accent px-3 py-1 rounded-full text-xs font-medium">b2b.bento.it.com</span>
+                    </div>
+                </div>
+
+                <!-- Logistics -->
+                <div class="finance-card p-6 rounded-3xl text-center group cursor-pointer" onclick="window.open('../logistics/index.html', '_blank')">
+                    <div class="w-16 h-16 bg-gradient-to-br from-accent/20 to-secondary/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-shipping-fast text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-poppins font-semibold text-primary mb-2">Logistics</h3>
+                    <p class="text-neutral-gray text-sm mb-4">Fleet Payout Automation</p>
+                    <div class="flex justify-center">
+                        <span class="bg-accent/10 text-accent px-3 py-1 rounded-full text-xs font-medium">logistics.bento.it.com</span>
+                    </div>
+                </div>
+
+                <!-- Consumers -->
+                <div class="finance-card p-6 rounded-3xl text-center group cursor-pointer">
+                    <div class="w-16 h-16 bg-gradient-to-br from-accent/20 to-secondary/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-users text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-poppins font-semibold text-primary mb-2">Consumers</h3>
+                    <p class="text-neutral-gray text-sm mb-4">Micro-credit & Wallets</p>
+                    <div class="flex justify-center">
+                        <span class="bg-accent/10 text-accent px-3 py-1 rounded-full text-xs font-medium">consumer.bento.it.com</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Money Flow Visualization -->
+            <div class="mt-16 text-center" data-aos="fade-up" data-aos-delay="600">
+                <div class="relative inline-block">
+                    <svg class="w-full max-w-2xl h-32" viewBox="0 0 800 120">
+                        <defs>
+                            <linearGradient id="flowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#10B981;stop-opacity:0.8" />
+                                <stop offset="50%" style="stop-color:#FACC15;stop-opacity:0.8" />
+                                <stop offset="100%" style="stop-color:#10B981;stop-opacity:0.8" />
+                            </linearGradient>
+                        </defs>
+                        
+                        <!-- Flow arrows -->
+                        <g stroke="url(#flowGradient)" stroke-width="3" fill="none" opacity="0.7">
+                            <path d="M50,60 Q200,30 350,60 Q500,90 650,60 Q700,50 750,60" stroke-dasharray="15,10">
+                                <animate attributeName="stroke-dashoffset" values="0;-200" dur="4s" repeatCount="indefinite"/>
+                            </path>
+                        </g>
+                        
+                        <!-- Flow nodes -->
+                        <g fill="#10B981">
+                            <circle cx="100" cy="60" r="4">
+                                <animate attributeName="r" values="3;6;3" dur="2s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="300" cy="60" r="4">
+                                <animate attributeName="r" values="3;6;3" dur="2s" repeatCount="indefinite" begin="0.5s"/>
+                            </circle>
+                            <circle cx="500" cy="60" r="4">
+                                <animate attributeName="r" values="3;6;3" dur="2s" repeatCount="indefinite" begin="1s"/>
+                            </circle>
+                            <circle cx="700" cy="60" r="4">
+                                <animate attributeName="r" values="3;6;3" dur="2s" repeatCount="indefinite" begin="1.5s"/>
+                            </circle>
+                        </g>
+                    </svg>
+                    <p class="text-sm text-neutral-gray mt-4 italic">Seamless financial flows across the entire ecosystem</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section id="contact" class="py-24 gradient-bg relative overflow-hidden">
+        <div class="absolute inset-0 finance-mesh opacity-20"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div data-aos="fade-up">
+                <h2 class="text-4xl sm:text-5xl font-poppins font-bold text-white mb-6">
+                    Finance That Works the Way <span class="text-accent">You Work</span>
+                </h2>
+                <p class="text-xl text-gray-200 mb-12 max-w-4xl mx-auto">
+                    Whether you're selling to thousands or buying in bulk — Bento Finance grows with your ambition.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                    <a href="mailto:finance@bento.it.com" class="bg-white text-primary px-8 py-4 rounded-2xl font-semibold hover:bg-gray-100 transition-all transform hover:scale-105 shadow-xl">
+                        <i class="fas fa-rocket mr-2"></i>
+                        Apply to Integrate
+                    </a>
+                    <a href="mailto:partnerships@bento.it.com" class="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold hover:bg-white hover:text-primary transition-all transform hover:scale-105">
+                        <i class="fas fa-play mr-2"></i>
+                        Request a Demo
+                    </a>
+                </div>
+
+                <!-- Optional investor CTA -->
+                <div class="mt-8">
+                    <a href="mailto:investors@bento.it.com" class="text-accent hover:text-secondary transition-colors text-lg font-medium">
+                        Looking to invest? → Partner with us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Logo & Description -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center mb-6">
+                        <div class="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
+                            <i class="fas fa-credit-card text-white"></i>
+                        </div>
+                        <span class="ml-3 text-2xl font-poppins font-bold">Bento Finance</span>
+                    </div>
+                    <p class="text-gray-400 max-w-md">
+                        Embedded finance that moves at the speed of commerce — intelligent credit, seamless payments, and financial tools that scale.
+                    </p>
+                </div>
+
+                <!-- Bento Ecosystem Links -->
+                <div>
+                    <h3 class="text-lg font-poppins font-semibold mb-4">Bento Ecosystem</h3>
+                    <ul class="space-y-2">
+                        <li><a href="../index.html" class="text-gray-400 hover:text-accent transition-colors">Main Platform</a></li>
+                        <li><a href="../b2b/index.html" class="text-gray-400 hover:text-accent transition-colors">B2B Marketplace</a></li>
+                        <li><a href="../logistics/index.html" class="text-gray-400 hover:text-accent transition-colors">Logistics Intelligence</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Retail ERP</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Consumer App</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Social -->
+                <div>
+                    <h3 class="text-lg font-poppins font-semibold mb-4">Connect</h3>
+                    <ul class="space-y-2">
+                        <li><a href="mailto:finance@bento.it.com" class="text-gray-400 hover:text-accent transition-colors">finance@bento.it.com</a></li>
+                        <li><a href="mailto:partnerships@bento.it.com" class="text-gray-400 hover:text-accent transition-colors">Financial Partnerships</a></li>
+                        <li><a href="mailto:investors@bento.it.com" class="text-gray-400 hover:text-accent transition-colors">Investor Relations</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">LinkedIn</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">AngelList</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p class="text-gray-400">
+                    © 2025 Bento Finance. All rights reserved. Part of the Bento Connected Commerce Ecosystem.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialize AOS -->
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            mirror: false
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html> 
